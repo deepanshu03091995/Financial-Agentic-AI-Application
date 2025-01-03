@@ -11,7 +11,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 web_search_agent=Agent(
     name="web search agent",
     role="search the web for the information",
-    model=Groq(id="llama3-groq-70b-8192-tools-use-preview"),
+    model=Groq(id="llama-3.1-70b-versatile"),
     tools=[DuckDuckGo()],
     instructions=["Always include the sources"],
     show_tool_calls=True,
@@ -22,7 +22,7 @@ web_search_agent=Agent(
 
 finance_agent = Agent(
     name="Finance_ai_ahent",
-    model=Groq(id="llama3-groq-70b-8192-tools-use-preview"),
+    model=Groq(id="llama-3.1-70b-versatile"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
     instruction=["Use Tables to display data"],
     show_tool_calls=True,
@@ -31,8 +31,12 @@ finance_agent = Agent(
 
 
 multi_ai_agent=Agent(
+    model=Groq(id="llama-3.1-70b-versatile"),
     team=[web_search_agent,finance_agent],
     instructions=["Always include the sources", "Use Tables to display data"],
+    show_tool_calls=True,
+    markdown=True,
+    
 
 )
 
